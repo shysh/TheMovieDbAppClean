@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">TheMovieDbAppClean</string>
+    <string name="app_name">TheMovieDb_App_Clean</string>
+
+    <string name="content_descritor_movie_image">Movie image</string>
+
+    <string name="login_with_fb">Continue with Facebook</string>
+    <string name="logout">Logout</string>
+
+    <string name="movies">Movies</string>
+    <string name="favourites">Favourites</string>
+    
+    <string name="add_to_favourites">ADD TO FAVOURITES</string>
+    <string name="remove">REMOVE</string>
+    <string name="share">SHARE</string>
 </resources>

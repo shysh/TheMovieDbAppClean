@@ -1,7 +1,8 @@
-package com.kinematik.themoviedb.themoviedbappclean
+package com.kinematik.themoviedb.themoviedbappclean.presentation.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.kinematik.themoviedb.themoviedbappclean.R
 
 class MainActivity : AppCompatActivity() {
 
