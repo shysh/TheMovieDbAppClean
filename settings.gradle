@@ -1,2 +1,4 @@
 rootProject.name='TheMovieDbAppClean'
 include ':app'
+include ':domain'
+include ':data'

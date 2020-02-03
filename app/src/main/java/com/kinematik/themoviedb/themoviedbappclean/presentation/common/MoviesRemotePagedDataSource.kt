@@ -1,8 +1,8 @@
 package com.kinematik.themoviedb.themoviedbappclean.presentation.common
 
 import androidx.paging.PageKeyedDataSource
-import com.kinematik.themoviedb.themoviedbappclean.data.datasource.LocalDataBaseDataSource
-import com.kinematik.themoviedb.themoviedbappclean.data.datasource.RemoteDataSource
+import com.kinematik.themoviedb.data.datasource.LocalDataBaseDataSource
+import com.kinematik.themoviedb.data.datasource.RemoteDataSource
 import com.kinematik.themoviedb.themoviedbappclean.presentation.common.model.Movie
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope

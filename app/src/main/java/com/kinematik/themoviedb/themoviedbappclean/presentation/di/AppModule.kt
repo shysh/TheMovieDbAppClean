@@ -2,9 +2,9 @@ package com.kinematik.themoviedb.themoviedbappclean.presentation.di
 
 import android.app.Application
 import com.elifox.legocatalog.di.ViewModelModule
-import com.kinematik.themoviedb.themoviedbappclean.presentation.db.MoviesRoomDataBase
-import com.kinematik.themoviedb.themoviedbappclean.presentation.network.MoviesApiService
-import com.kinematik.themoviedb.themoviedbappclean.presentation.network.interceptor.AuthInterceptor
+import com.kinematik.themoviedb.themoviedbappclean.farmework.db.MoviesRoomDataBase
+import com.kinematik.themoviedb.themoviedbappclean.farmework.network.MoviesApiService
+import com.kinematik.themoviedb.themoviedbappclean.farmework.network.interceptor.AuthInterceptor
 
 import dagger.Module
 import dagger.Provides
