@@ -7,11 +7,11 @@ import javax.inject.Inject
 
 class RetrofitRemoteDataSource @Inject constructor(private val moviesApiService: MoviesApiService): BaseRemoteDataSource() {
 
-    override suspend fun getMovies(dateFrom: String, dateTo: String, page: Int): Movies {
+    override suspend fun getMovies(dateFrom: String, dateTo: String, page: Int, pageSize: Int): Movies {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override suspend fun getMovie(id: Int): Movie {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 }

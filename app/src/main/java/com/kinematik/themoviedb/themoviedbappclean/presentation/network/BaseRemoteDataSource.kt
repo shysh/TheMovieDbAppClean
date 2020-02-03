@@ -20,12 +20,11 @@ abstract class BaseRemoteDataSource : RemoteDataSource {
             //todo parse error
             return error(Throwable(" ${response.code()} ${response.message()}"))
         } catch (e: Exception) {
-            return error(e.message ?: e.toString())
+            return error(e)
         }
     }
 
     private fun <T> error(throwable: Throwable): Result<T> {
-
         return Result.error(throwable)
     }
 

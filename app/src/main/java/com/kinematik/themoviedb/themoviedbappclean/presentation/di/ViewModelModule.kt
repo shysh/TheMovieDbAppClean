@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.kinematik.themoviedb.themoviedbappclean.presentation.ui.home.HomeViewModel
 import com.kinematik.themoviedb.themoviedbappclean.presentation.ui.home.favourites.FavouriteMoviesViewModel
-import com.kinematik.themoviedb.themoviedbappclean.presentation.ui.home.moviews.OngoingMoviesViewModel
+import com.kinematik.themoviedb.themoviedbappclean.presentation.ui.home.movies.OngoingMoviesViewModel
 import com.kinematik.themoviedb.themoviedbappclean.presentation.ui.login.LoginViewModel
 
 import dagger.Binds
