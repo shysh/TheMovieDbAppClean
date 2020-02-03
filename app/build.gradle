@@ -23,6 +23,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    signingConfigs {
+        release {
+            keyAlias 'key0'
+
+            keyPassword '12345678'
+            storeFile file('../release.keystor')
+            storePassword '12345678'
+        }
+    }
+
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -123,6 +133,8 @@ dependencies {
         // Excludes the support library because it's already included by Glide.
         transitive = false
     }
+
+    implementation 'com.facebook.android:facebook-login:5.15.1'
 
 
     testImplementation 'junit:junit:4.12'

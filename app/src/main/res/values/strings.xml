@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">TheMovieDb_App_Clean</string>
+    <string name="facebook_app_id">629969794437064</string>
+    <string name="fb_login_protocol_scheme">fb629969794437064</string>
 
     <string name="content_descritor_movie_image">Movie image</string>
 
