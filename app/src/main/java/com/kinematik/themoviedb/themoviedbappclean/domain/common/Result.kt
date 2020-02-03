@@ -1,4 +1,4 @@
-package com.kinematik.themoviedb.themoviedbappclean.data.common
+package com.kinematik.themoviedb.themoviedbappclean.domain.common
 
 data class Result<out T>(val status: Status, val data: T?, val error: Throwable?) {
 

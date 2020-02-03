@@ -2,7 +2,7 @@ package com.kinematik.themoviedb.themoviedbappclean.presentation.network.mapper
 
 import com.kinematik.themoviedb.app.core.domain.Movie
 import com.kinematik.themoviedb.app.core.domain.MovieResponse
-import com.kinematik.themoviedb.themoviedbappclean.data.common.BaseMapper
+import com.kinematik.themoviedb.themoviedbappclean.domain.common.BaseMapper
 
 class MovieResponseMapper:
     BaseMapper<Movie, MovieResponse> {

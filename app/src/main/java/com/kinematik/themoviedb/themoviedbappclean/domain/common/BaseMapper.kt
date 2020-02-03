@@ -1,4 +1,4 @@
-package com.kinematik.themoviedb.themoviedbappclean.data.common
+package com.kinematik.themoviedb.themoviedbappclean.domain.common
 
 interface BaseMapper<E, D> {
 
