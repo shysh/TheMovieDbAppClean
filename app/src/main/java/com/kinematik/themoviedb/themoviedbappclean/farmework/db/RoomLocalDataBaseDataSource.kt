@@ -3,8 +3,9 @@ package com.kinematik.themoviedb.themoviedbappclean.farmework.db
 import com.kinematik.themoviedb.data.datasource.LocalDataBaseDataSource
 import com.kinematik.themoviedb.domain.entity.Movie
 import com.kinematik.themoviedb.themoviedbappclean.farmework.db.mapper.MovieDBEntityMapper
+import javax.inject.Inject
 
-class RoomLocalDataBaseDataSource(val roomDataBase: MoviesRoomDataBase) : LocalDataBaseDataSource {
+class RoomLocalDataBaseDataSource @Inject constructor(val roomDataBase: MoviesRoomDataBase) : LocalDataBaseDataSource {
 
     override suspend fun getCachedMovies(): List<Movie> =
         roomDataBase.moviesDao().getPagedMovies().map {

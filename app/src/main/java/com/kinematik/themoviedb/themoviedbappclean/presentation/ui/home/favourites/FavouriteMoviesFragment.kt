@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kinematik.themoviedb.themoviedbappclean.R
-import com.kinematik.themoviedb.themoviedbappclean.presentation.di.Injectable
+import com.kinematik.themoviedb.themoviedbappclean.di.Injectable
 import kotlinx.android.synthetic.main.fragment_movies_favourites.*
 import javax.inject.Inject
 

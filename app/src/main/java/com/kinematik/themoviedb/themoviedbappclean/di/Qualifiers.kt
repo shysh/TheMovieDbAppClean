@@ -1,4 +1,4 @@
-package com.kinematik.themoviedb.themoviedbappclean.presentation.di
+package com.kinematik.themoviedb.themoviedbappclean.di
 
 import javax.inject.Qualifier
 

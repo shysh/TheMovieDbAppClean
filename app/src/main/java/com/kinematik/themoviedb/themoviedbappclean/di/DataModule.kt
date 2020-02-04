@@ -1,4 +1,4 @@
-package com.kinematik.themoviedb.themoviedbappclean.presentation.di
+package com.kinematik.themoviedb.themoviedbappclean.di
 
 import com.google.gson.Gson
 import com.kinematik.themoviedb.themoviedbappclean.BuildConfig

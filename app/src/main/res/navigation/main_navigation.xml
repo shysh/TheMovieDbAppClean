@@ -14,6 +14,8 @@
         <action
             android:id="@+id/action_login_screen_to_home_screen"
             app:destination="@id/home_screen"
+            app:popUpTo="@id/login_screen"
+            app:popUpToInclusive="true"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -31,9 +33,10 @@
             app:destination="@id/login_screen"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
-            app:launchSingleTop="false"
+            app:popUpTo="@id/home_screen"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            app:popUpToInclusive="false" />
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 </navigation>
