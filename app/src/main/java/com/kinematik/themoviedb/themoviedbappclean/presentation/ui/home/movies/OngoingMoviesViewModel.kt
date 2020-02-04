@@ -13,4 +13,12 @@ class OngoingMoviesViewModel @Inject constructor() : ViewModel() {
 
     val query : LiveData<Movie> = _query
 
+    fun onAddToFavourites(item:Movie){
+
+    }
+
+    fun onShare(item:Movie){
+
+    }
+
 }

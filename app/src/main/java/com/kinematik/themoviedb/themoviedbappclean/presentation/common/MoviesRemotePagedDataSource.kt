@@ -40,13 +40,13 @@ class MoviesRemotePagedDataSource @Inject constructor(
     private fun fetchData(page: Int, pageSize: Int, callback: (List<Movie>) -> Unit) {
         coroutineScope.launch(getJobErrorHandler()) {
             val response = remoteDataSource.getMovies(dateFrom, dateTo, page, pageSize)
-            if (response.status == Result.Status.SUCCESS) {
+            /*if (response.status == Result.Status.SUCCESS) {
                 val results = response.data!!.results
                 dao.insertAll(results)
                 callback(results)
             } else if (response.status == Result.Status.ERROR) {
                 postError(response.message!!)
-            }
+            }*/
         }
     }
 

@@ -1,8 +1,8 @@
 package com.elifox.legocatalog.di
 
-import com.kinematik.themoviedb.app.view.home.FavouriteMoviesFragment
-import com.kinematik.themoviedb.app.view.home.HomeFragment
-import com.kinematik.themoviedb.app.view.home.OngoingMoviesFragment
+import com.kinematik.themoviedb.themoviedbappclean.presentation.ui.home.favourites.FavouriteMoviesFragment
+import com.kinematik.themoviedb.themoviedbappclean.presentation.ui.home.HomeFragment
+import com.kinematik.themoviedb.themoviedbappclean.presentation.ui.home.movies.OngoingMoviesFragment
 import com.kinematik.themoviedb.app.view.login.LoginFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

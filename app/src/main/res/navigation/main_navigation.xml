@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/home_screen"
-        android:name="com.kinematik.themoviedb.app.view.home.HomeFragment"
+        android:name="com.kinematik.themoviedb.themoviedbappclean.presentation.ui.home.HomeFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_home">
         <action

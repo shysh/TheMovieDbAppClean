@@ -1,27 +1,37 @@
 package com.kinematik.themoviedb.themoviedbappclean.farmework.network
 
+import com.kinematik.themoviedb.data.datasource.RemoteDataSource
+import com.kinematik.themoviedb.domain.common.Result
 import com.kinematik.themoviedb.domain.entity.Movie
 import com.kinematik.themoviedb.domain.entity.Movies
-import com.kinematik.themoviedb.data.datasource.RemoteDataSource
-import com.kinematik.themoviedb.domain.common.BaseMapper
-import com.kinematik.themoviedb.domain.common.Result
-import com.kinematik.themoviedb.themoviedbappclean.farmework.network.mapper.MovieResponseMapper
 import retrofit2.Response
 import javax.inject.Inject
 
-class RetrofitRemoteDataSource @Inject constructor(private val moviesApiService: MoviesApiService): RemoteDataSource {
+class RetrofitRemoteDataSource @Inject constructor(private val moviesApiService: MoviesApiService) :
+    RemoteDataSource {
+    override suspend fun getMovies(
+        dateFrom: String,
+        dateTo: String,
+        page: Int,
+        pageSize: Int
+    ): Result<Movies> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
-    override suspend fun getMovies(dateFrom: String, dateTo: String, page: Int, pageSize: Int): Result<Movies> {
+    override suspend fun getMovie(id: Int): Result<Movie> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    /*override suspend fun getMovies(dateFrom: String, dateTo: String, page: Int, pageSize: Int): Result<Movies> {
         getResult({moviesApiService.discoverMovies(dateFrom, dateTo, page)})
     }
 
     override suspend fun getMovie(id: Int): Result<Movie>  = getResult {
         moviesApiService.getMovie(id)
-    }
+    }*/
 
 
-
-    private suspend fun <T, E> getResult( call: suspend () -> Response<T>): Result<T> {
+    private suspend fun <T, E> getResult(call: suspend () -> Response<T>): Result<T> {
         try {
             val response = call()
             if (response.isSuccessful) {
