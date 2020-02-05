@@ -1,8 +1,13 @@
 package com.kinematik.themoviedb.themoviedbappclean.di
 
 import android.app.Application
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.elifox.legocatalog.di.ViewModelModule
+import com.kinematik.themoviedb.themoviedbappclean.farmework.cache.FileBasedCacheManager
 import com.kinematik.themoviedb.themoviedbappclean.farmework.db.MoviesRoomDataBase
+import com.kinematik.themoviedb.themoviedbappclean.farmework.interactor.MoviesInteractorImp
 import com.kinematik.themoviedb.themoviedbappclean.farmework.network.MoviesApiService
 import com.kinematik.themoviedb.themoviedbappclean.farmework.network.interceptor.AuthInterceptor
 
@@ -40,11 +45,6 @@ class AppModule {
             .build()
     }
 
-    //todo
-    /*@Provides
-    fun provideRepository(legoService: MoviesApiService)
-            = LegoSetRemoteDataSource(legoService)*/
-
     @MovieDbAPI
     @Provides
     fun providePrivateOkHttpClient(
@@ -56,8 +56,24 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideDb(app: Application) = MoviesRoomDataBase.getInstance(app)
+    fun provideDb(app: Application) = Room.databaseBuilder(app, MoviesRoomDataBase::class.java, "movie-db.db")
+        .addCallback(object : RoomDatabase.Callback() {
+            override fun onCreate(db: SupportSQLiteDatabase) {
+                super.onCreate(db)
+            }
+        })
+        .build()
 
+
+
+    @Singleton
+    @Provides
+    fun provideFileCache(app: Application) = FileBasedCacheManager.getInstance(app)
+
+
+    /*@Singleton
+    @Provides
+    fun provideLocalDataBaseDataSource() = MoviesInteractorImp()*/
 
     @CoroutineScropeIO
     @Provides

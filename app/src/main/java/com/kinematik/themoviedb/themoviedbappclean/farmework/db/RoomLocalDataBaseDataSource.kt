@@ -7,10 +7,13 @@ import javax.inject.Inject
 
 class RoomLocalDataBaseDataSource @Inject constructor(val roomDataBase: MoviesRoomDataBase) : LocalDataBaseDataSource {
 
-    override suspend fun getCachedMovies(): List<Movie> =
-        roomDataBase.moviesDao().getPagedMovies().map {
-            MovieDBEntityMapper().mapToEntity(it)
+    val movieDBEntityMapper = MovieDBEntityMapper()
+
+    override suspend fun getCachedMovies(): List<Movie> {
+        return roomDataBase.moviesDao().getMovies().map {
+            movieDBEntityMapper.mapToEntity(it)
         }
+    }
 
     override suspend fun getMoviesFromFavourites(): List<Movie> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

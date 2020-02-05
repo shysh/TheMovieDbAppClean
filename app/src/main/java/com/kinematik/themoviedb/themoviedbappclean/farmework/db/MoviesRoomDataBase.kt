@@ -16,7 +16,7 @@ abstract class MoviesRoomDataBase : RoomDatabase() {
 
     abstract fun moviesDao(): MoviesDao
 
-    companion object {
+    /*companion object {
 
         // For Singleton instantiation
         @Volatile
@@ -37,6 +37,6 @@ abstract class MoviesRoomDataBase : RoomDatabase() {
                 })
                 .build()
         }
-    }
+    }*/
 
 }
