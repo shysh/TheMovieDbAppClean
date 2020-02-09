@@ -35,8 +35,6 @@ class RetrofitRemoteDataSource @Inject constructor(private val moviesApiService:
             result = DataResult.error(apiResult.error)
         }
 
-
-
         return result
     }
 

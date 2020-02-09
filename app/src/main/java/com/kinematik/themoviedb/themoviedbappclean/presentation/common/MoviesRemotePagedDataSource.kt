@@ -3,7 +3,8 @@ package com.kinematik.themoviedb.themoviedbappclean.presentation.common
 import androidx.paging.PageKeyedDataSource
 import com.kinematik.themoviedb.data.datasource.LocalDataBaseDataSource
 import com.kinematik.themoviedb.data.datasource.RemoteDataSource
-import com.kinematik.themoviedb.themoviedbappclean.presentation.common.model.Movie
+import com.kinematik.themoviedb.domain.common.DataResult
+import com.kinematik.themoviedb.domain.entity.Movie
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -40,13 +41,24 @@ class MoviesRemotePagedDataSource @Inject constructor(
     private fun fetchData(page: Int, pageSize: Int, callback: (List<Movie>) -> Unit) {
         coroutineScope.launch(getJobErrorHandler()) {
             val response = remoteDataSource.getMovies(dateFrom, dateTo, page, pageSize)
-            /*if (response.status == Result.Status.SUCCESS) {
-                val results = response.data!!.results
-                dao.insertAll(results)
-                callback(results)
-            } else if (response.status == Result.Status.ERROR) {
-                postError(response.message!!)
-            }*/
+            if (response.status == DataResult.Status.SUCCESS) {
+
+                val items:MutableList<Movie> = mutableListOf<Movie>()
+
+                response.data?.results?.let {
+                    if(page == 1){
+                        localDataBaseDataSource.clearAll()
+                    }
+
+                    items.addAll(it)
+                    localDataBaseDataSource.insertAll(it)
+
+                }
+
+                callback(items)
+            } else if (response.status == DataResult.Status.ERROR) {
+                postError(response.error?.message)
+            }
         }
     }
 
@@ -54,7 +66,7 @@ class MoviesRemotePagedDataSource @Inject constructor(
         postError(e.message ?: e.toString())
     }
 
-    private fun postError(message: String) {
+    private fun postError(message: String?) {
         // TODO network error handling
         //networkState.postValue(NetworkState.FAILED)
     }
