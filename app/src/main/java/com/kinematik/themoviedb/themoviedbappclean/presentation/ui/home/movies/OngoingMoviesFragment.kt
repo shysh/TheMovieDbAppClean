@@ -51,7 +51,11 @@ class OngoingMoviesFragment : Fragment(), Injectable {
 
         subscribeToViewModel()
 
-        viewModel.loadFromHead()
+        swipe_to_refresh_layout.setOnRefreshListener {
+            viewModel.load()
+        }
+
+        viewModel.load()
 
     }
 
@@ -61,15 +65,17 @@ class OngoingMoviesFragment : Fragment(), Injectable {
                 DataResult.Status.SUCCESS ->{
                     _result.data?.let {
                         adapter.submitList(it)
+
+                        swipe_to_refresh_layout.isRefreshing  = false
                     }
                 }
 
                 DataResult.Status.LOADING ->{
-                    //todo
+                    swipe_to_refresh_layout.isRefreshing  = true
                 }
 
                 DataResult.Status.ERROR ->{
-                    //todo
+                    swipe_to_refresh_layout.isRefreshing  = false
                 }
 
 

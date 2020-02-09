@@ -11,14 +11,14 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.kinematik.themoviedb.themoviedbappclean.R
 import com.kinematik.themoviedb.themoviedbappclean.farmework.network.MoviesApiService
-import com.kinematik.themoviedb.themoviedbappclean.presentation.common.model.Movie
+import com.kinematik.themoviedb.themoviedbappclean.presentation.common.model.MoviePresentationDao
 import com.kinematik.themoviedb.themoviedbappclean.presentation.ui.extensions.afterPreDraw
 import kotlinx.android.synthetic.main.view_cell_favourites_item.view.*
 
-typealias OnRemoveFromFavouritesCallback = (Movie)->Unit
-typealias OnShareCallback = (Movie)->Unit
+typealias OnRemoveFromFavouritesCallback = (MoviePresentationDao)->Unit
+typealias OnShareCallback = (MoviePresentationDao)->Unit
 
-class FavouriteMoviesAdapter : ListAdapter<Movie, FavouriteMoviesAdapter.ViewHolder>(DiffCallback()) {
+class FavouriteMoviesAdapter : ListAdapter<MoviePresentationDao, FavouriteMoviesAdapter.ViewHolder>(DiffCallback()) {
 
     var onRemoveFromFavouritesCallback:OnRemoveFromFavouritesCallback? = null
     var onShareCallback:OnShareCallback? = null
@@ -60,7 +60,7 @@ class FavouriteMoviesAdapter : ListAdapter<Movie, FavouriteMoviesAdapter.ViewHol
             }
         }
 
-        fun onBind(item: Movie) {
+        fun onBind(item: MoviePresentationDao) {
 
             itemView.title_text_view.text = item.original_title
             itemView.description_text_view.text = item.overview
@@ -84,13 +84,13 @@ class FavouriteMoviesAdapter : ListAdapter<Movie, FavouriteMoviesAdapter.ViewHol
 
     }
 
-    private class DiffCallback : DiffUtil.ItemCallback<Movie>() {
+    private class DiffCallback : DiffUtil.ItemCallback<MoviePresentationDao>() {
 
-        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        override fun areItemsTheSame(oldItem: MoviePresentationDao, newItem: MoviePresentationDao): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        override fun areContentsTheSame(oldItem: MoviePresentationDao, newItem: MoviePresentationDao): Boolean {
             return oldItem == newItem
         }
     }

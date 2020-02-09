@@ -8,7 +8,7 @@ import com.kinematik.themoviedb.themoviedbappclean.farmework.db.entity.MovieDBEn
 interface MoviesDao {
 
     @Query("SELECT * FROM movies")
-    suspend fun getMoviesLive(): LiveData<List<MovieDBEntity>>
+    fun getMoviesLive(): LiveData<List<MovieDBEntity>>
 
     @Query("SELECT * FROM movies")
     suspend fun getMovies(): List<MovieDBEntity>

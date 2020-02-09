@@ -56,19 +56,20 @@ class LoginFragment : Fragment(), Injectable {
                         val lastName = it.lastName
                         val picture = it.getProfilePictureUri(200, 200)
                     }
+                    Navigation.findNavController(view).navigate(R.id.action_login_screen_to_home_screen)
 
-                    val request = GraphRequest.newMeRequest(
+                    /*val request = GraphRequest.newMeRequest(
                         _loginResult.accessToken
                     ) { _object, _response ->
                         Log.v("LoginActivity", _response.toString())
                         // Application code
-                        val email = _object.getString("email")
-                        val birthday = _object.getString("birthday") // 01/31/1980 format
+                        *//*val email = _object.getString("email")
+                        val birthday = _object.getString("birthday") // 01/31/1980 format*//*
                     }
                     val parameters = Bundle()
                     parameters.putString("fields", "id,name,email,gender,birthday, ")
                     request.parameters = parameters
-                    request.executeAsync()
+                    request.executeAsync()*/
                 }
 
                 //Navigation.findNavController(view).navigate(R.id.action_login_screen_to_home_screen)
