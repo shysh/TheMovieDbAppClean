@@ -1,20 +1,20 @@
-package com.kinematik.themoviedb.themoviedbappclean.presentation.ui.home.movies
+package com.kinematik.themoviedb.themoviedbappclean.presentation.common
 
 import androidx.paging.PageKeyedDataSource
-import com.kinematik.themoviedb.data.datasource.DataBaseDataSource
+import com.kinematik.themoviedb.data.datasource.LocalDataBaseDataSource
 import com.kinematik.themoviedb.data.datasource.RemoteDataSource
 import com.kinematik.themoviedb.domain.common.DataResult
-import com.kinematik.themoviedb.themoviedbappclean.farmework.MoviesRepository
-import com.kinematik.themoviedb.themoviedbappclean.presentation.common.model.Movie
+import com.kinematik.themoviedb.domain.entity.Movie
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MoviesRemotePagedDataSource  constructor(
+class MoviesRemotePagedDataSource @Inject constructor(
     private val dateFrom: String,
     private val dateTo: String,
-    private val repository: MoviesRepository,
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataBaseDataSource: LocalDataBaseDataSource,
     private val coroutineScope: CoroutineScope):
     PageKeyedDataSource<Int, Movie>(){
 
@@ -40,13 +40,24 @@ class MoviesRemotePagedDataSource  constructor(
 
     private fun fetchData(page: Int, pageSize: Int, callback: (List<Movie>) -> Unit) {
         coroutineScope.launch(getJobErrorHandler()) {
-            val response = repository.networkDataSource.getMovies(dateFrom, dateTo, page, pageSize)
+            val response = remoteDataSource.getMovies(dateFrom, dateTo, page, pageSize)
             if (response.status == DataResult.Status.SUCCESS) {
-                val results = response.data.results
-                repository..insertAll(results)
-                callback(results)
-            } else if (response.status == Result.Status.ERROR) {
-                postError(response.error)
+
+                val items:MutableList<Movie> = mutableListOf<Movie>()
+
+                response.data?.results?.let {
+                    if(page == 1){
+                        localDataBaseDataSource.clearAll()
+                    }
+
+                    items.addAll(it)
+                    localDataBaseDataSource.insertAll(it)
+
+                }
+
+                callback(items)
+            } else if (response.status == DataResult.Status.ERROR) {
+                postError(response.error?.message)
             }
         }
     }
@@ -55,7 +66,7 @@ class MoviesRemotePagedDataSource  constructor(
         postError(e.message ?: e.toString())
     }
 
-    private fun postError(message: String) {
+    private fun postError(message: String?) {
         // TODO network error handling
         //networkState.postValue(NetworkState.FAILED)
     }

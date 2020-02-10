@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.kinematik.themoviedb.domain.common.DataResult
 import com.kinematik.themoviedb.themoviedbappclean.R
 import com.kinematik.themoviedb.themoviedbappclean.di.Injectable
 import kotlinx.android.synthetic.main.fragment_movies_ongoing.*
@@ -51,6 +53,38 @@ class OngoingMoviesFragment : Fragment(), Injectable {
         recycler_view.layoutManager = LinearLayoutManager(context)
         recycler_view.adapter = adapter
 
+        subscribeToViewModel()
+
+        swipe_to_refresh_layout.setOnRefreshListener {
+            viewModel.load()
+        }
+
+        viewModel.load()
+
+    }
+
+    private fun subscribeToViewModel() {
+        viewModel.data.observe(viewLifecycleOwner, Observer { _result->
+            when(_result.status){
+                DataResult.Status.SUCCESS ->{
+                    _result.data?.let {
+                        adapter.submitList(it)
+
+                        swipe_to_refresh_layout.isRefreshing  = false
+                    }
+                }
+
+                DataResult.Status.LOADING ->{
+                    swipe_to_refresh_layout.isRefreshing  = true
+                }
+
+                DataResult.Status.ERROR ->{
+                    swipe_to_refresh_layout.isRefreshing  = false
+                }
+
+
+            }
+        })
     }
 
 

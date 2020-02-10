@@ -9,13 +9,14 @@ import retrofit2.http.Query
 interface MoviesApiService {
 
     companion object CONSTANTS {
-        const val ENDPOINT = "https://api.themoviedb.org/3"
+        const val ENDPOINT = "https://api.themoviedb.org/3/"
+        const val IMAGE_PATH = "https://image.tmdb.org/t/p/original"
         const val API_KEY = "7f6f9638f39efd41ac4c832d283f071f"
         const val QUERY_PARAM_API_KEY = "api_key"
 
     }
 
-    @GET("/discover/movie")
+    @GET("discover/movie")
     suspend fun discoverMovies(
         @Query("release_date.gte") fromDate: String,
         @Query("release_date.lte") toDate: String,

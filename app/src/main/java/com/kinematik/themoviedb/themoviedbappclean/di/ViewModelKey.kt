@@ -1,4 +1,4 @@
-package com.elifox.legocatalog.di
+package com.kinematik.themoviedb.themoviedbappclean.di
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey
