@@ -1,5 +1,7 @@
 package com.kinematik.themoviedb.themoviedbappclean.farmework.db
 
+import androidx.arch.core.util.Function
+import androidx.lifecycle.Transformations
 import com.kinematik.themoviedb.data.datasource.DataBaseDataSource
 import com.kinematik.themoviedb.domain.entity.Movie
 import com.kinematik.themoviedb.themoviedbappclean.farmework.db.mapper.MovieDBEntityMapper
@@ -19,7 +21,9 @@ class RoomLocalDataBaseDataSource @Inject constructor(
     }
 
     override suspend fun getCachedMoviesChannel(): Channel<List<Movie>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Transformations.switchMap(roomDataBase.moviesDao().getMoviesLive(), Function {
+
+        })
     }
 
     override suspend fun getMoviesFromFavourites(): List<Movie> {
