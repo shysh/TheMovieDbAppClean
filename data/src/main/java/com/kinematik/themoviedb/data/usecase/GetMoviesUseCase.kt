@@ -4,8 +4,9 @@ package com.kinematik.themoviedb.data.usecase
 import com.kinematik.themoviedb.data.datasource.DataBaseDataSource
 import com.kinematik.themoviedb.data.datasource.RemoteDataSource
 
-
-class GetMoviesUseCase constructor(private val remoteDataSource: RemoteDataSource, private val localDataBaseDataSource: DataBaseDataSource) {
+class GetMoviesUseCase constructor(
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataBaseDataSource: DataBaseDataSource) {
 
     suspend operator fun invoke(
         dateFrom: String,

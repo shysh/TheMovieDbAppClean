@@ -10,9 +10,8 @@ class FileBasedCacheManager {
 
         const val STORE_FILE_NAME = "UserStore"
 
-        // For Singleton instantiation
         @Volatile
-        private lateinit var cacheDirPath: String
+        private var cacheDirPath: String? =null
 
         fun getInstance(context: Context): String {
             return cacheDirPath ?: synchronized(this) {

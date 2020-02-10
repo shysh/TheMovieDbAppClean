@@ -6,7 +6,7 @@ import com.kinematik.themoviedb.data.datasource.RemoteDataSource
 import com.kinematik.themoviedb.domain.entity.Movie
 
 abstract class MoviesInteractor(
-    private val cacheDataSource: CacheDataSource,
+    /*private val cacheDataSource: CacheDataSource,*/
     private val remoteDataSource: RemoteDataSource,
     private val localDataBaseDataSource: DataBaseDataSource
 ) {
@@ -17,7 +17,7 @@ abstract class MoviesInteractor(
     suspend fun getMovies(
         dateFrom: String,
         dateTo: String,
-        page: Int = 0,
+        page: Int = 1,
         pageSize: Int = 20
     ) = remoteDataSource.getMovies(
         dateFrom, dateTo, page, pageSize

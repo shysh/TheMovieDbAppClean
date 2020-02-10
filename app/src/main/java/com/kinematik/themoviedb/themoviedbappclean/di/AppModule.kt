@@ -93,12 +93,12 @@ class AppModule {
     @Provides
     fun provideUserCacheEntityMapper() =  UserCacheEntityMapper()
 
-    @Singleton
+    /*@Singleton
     @Provides
     fun provideMoviesInteractor(fileBasedCacheDataSource: FileBasedCacheDataSource,
                                 retrofitRemoteDataSource: RetrofitRemoteDataSource,
                                 roomLocalDataBaseDataSource: RoomLocalDataBaseDataSource
-    ) =  MoviesInteractorImp(fileBasedCacheDataSource, retrofitRemoteDataSource, roomLocalDataBaseDataSource)
+    ) =  MoviesInteractorImp(fileBasedCacheDataSource, retrofitRemoteDataSource, roomLocalDataBaseDataSource)*/
 
     @CoroutineScropeIO
     @Provides

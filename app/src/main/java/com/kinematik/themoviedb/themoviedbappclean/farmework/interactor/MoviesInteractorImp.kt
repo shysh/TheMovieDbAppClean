@@ -6,8 +6,8 @@ import com.kinematik.themoviedb.themoviedbappclean.farmework.db.RoomLocalDataBas
 import com.kinematik.themoviedb.themoviedbappclean.farmework.network.RetrofitRemoteDataSource
 import javax.inject.Inject
 
-class MoviesInteractorImp @Inject constructor(fileBasedCacheDataSource: FileBasedCacheDataSource,
+class MoviesInteractorImp @Inject constructor(/*fileBasedCacheDataSource: FileBasedCacheDataSource,*/
                                               retrofitRemoteDataSource: RetrofitRemoteDataSource,
                                               roomLocalDataBaseDataSource: RoomLocalDataBaseDataSource)
-    :MoviesInteractor(fileBasedCacheDataSource, retrofitRemoteDataSource, roomLocalDataBaseDataSource) {
+    :MoviesInteractor(/*fileBasedCacheDataSource,*/ retrofitRemoteDataSource, roomLocalDataBaseDataSource) {
 }
