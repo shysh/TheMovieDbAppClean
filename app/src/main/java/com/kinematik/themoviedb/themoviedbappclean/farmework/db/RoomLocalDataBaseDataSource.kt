@@ -1,11 +1,11 @@
 package com.kinematik.themoviedb.themoviedbappclean.farmework.db
 
-import com.kinematik.themoviedb.data.datasource.LocalDataBaseDataSource
+import com.kinematik.themoviedb.data.datasource.DataBaseDataSource
 import com.kinematik.themoviedb.domain.entity.Movie
 import com.kinematik.themoviedb.themoviedbappclean.farmework.db.mapper.MovieDBEntityMapper
 import javax.inject.Inject
 
-class RoomLocalDataBaseDataSource @Inject constructor(val roomDataBase: MoviesRoomDataBase) : LocalDataBaseDataSource {
+class RoomLocalDataBaseDataSource @Inject constructor(val roomDataBase: MoviesRoomDataBase) : DataBaseDataSource {
 
     val movieDBEntityMapper = MovieDBEntityMapper()
 

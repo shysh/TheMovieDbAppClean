@@ -1,11 +1,11 @@
 package com.kinematik.themoviedb.data
 
 import com.kinematik.themoviedb.data.datasource.CacheDataSource
-import com.kinematik.themoviedb.data.datasource.LocalDataBaseDataSource
+import com.kinematik.themoviedb.data.datasource.DataBaseDataSource
 import com.kinematik.themoviedb.data.datasource.RemoteDataSource
 
-class Repository(
+open class Repository(
     val networkDataSource: RemoteDataSource,
-    val localDataBaseDataSource: LocalDataBaseDataSource,
+    val localDataBaseDataSource: DataBaseDataSource,
     val cacheDataSource: CacheDataSource
 )

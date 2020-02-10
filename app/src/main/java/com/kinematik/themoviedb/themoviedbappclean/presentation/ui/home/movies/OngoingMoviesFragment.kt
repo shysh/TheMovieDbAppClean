@@ -44,9 +44,12 @@ class OngoingMoviesFragment : Fragment(), Injectable {
         adapter.onAddToFavourites = viewModel::onAddToFavourites
         adapter.onShareCallback = viewModel::onShare
 
+        swipe_to_refresh_layout.setOnRefreshListener {
+            viewModel.loadData()
+        }
+
         recycler_view.layoutManager = LinearLayoutManager(context)
         recycler_view.adapter = adapter
-
 
     }
 

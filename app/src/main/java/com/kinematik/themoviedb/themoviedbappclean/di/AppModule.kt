@@ -65,15 +65,10 @@ class AppModule {
         .build()
 
 
-
     @Singleton
     @Provides
     fun provideFileCache(app: Application) = FileBasedCacheManager.getInstance(app)
 
-
-    /*@Singleton
-    @Provides
-    fun provideLocalDataBaseDataSource() = MoviesInteractorImp()*/
 
     @CoroutineScropeIO
     @Provides

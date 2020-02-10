@@ -3,7 +3,7 @@ package com.kinematik.themoviedb.data.datasource
 import com.kinematik.themoviedb.domain.entity.Movie
 
 
-interface LocalDataBaseDataSource {
+interface DataBaseDataSource {
 
     suspend fun getCachedMovies(): List<Movie>
 
