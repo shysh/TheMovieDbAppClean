@@ -4,9 +4,10 @@ import com.kinematik.themoviedb.app.core.domain.MoviesResponse
 import com.kinematik.themoviedb.domain.common.BaseMapper
 import com.kinematik.themoviedb.domain.entity.Movie
 import com.kinematik.themoviedb.domain.entity.Page
+import javax.inject.Inject
 
-class MoviesResponseMapper : BaseMapper<Page<Movie>, MoviesResponse> {
-    val movieResponseMapper = MovieResponseMapper()
+class MoviesResponseMapper @Inject constructor(private val movieResponseMapper: MovieResponseMapper): BaseMapper<Page<Movie>, MoviesResponse> {
+
 
     override fun mapFromEntity(type: Page<Movie>): MoviesResponse {
         return MoviesResponse(page = type.page,

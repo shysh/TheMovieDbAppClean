@@ -1,14 +1,13 @@
 package com.kinematik.themoviedb.themoviedbappclean.farmework.db
 
-import androidx.paging.DataSource
-import com.kinematik.themoviedb.data.datasource.LocalDataBaseDataSource
+import com.kinematik.themoviedb.data.datasource.DataBaseDataSource
 import com.kinematik.themoviedb.domain.entity.Movie
 import com.kinematik.themoviedb.themoviedbappclean.farmework.db.mapper.MovieDBEntityMapper
-import io.reactivex.subjects.PublishSubject
 import kotlinx.coroutines.channels.Channel
 import javax.inject.Inject
 
-class RoomLocalDataBaseDataSource @Inject constructor(val roomDataBase: MoviesRoomDataBase) : LocalDataBaseDataSource {
+class RoomLocalDataBaseDataSource @Inject constructor(val roomDataBase: MoviesRoomDataBase) :
+    DataBaseDataSource {
 
     val movieDBEntityMapper = MovieDBEntityMapper()
 

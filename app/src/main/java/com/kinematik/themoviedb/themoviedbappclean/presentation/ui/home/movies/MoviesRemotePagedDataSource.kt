@@ -1,7 +1,7 @@
 package com.kinematik.themoviedb.themoviedbappclean.presentation.common
 
 import androidx.paging.PageKeyedDataSource
-import com.kinematik.themoviedb.data.datasource.LocalDataBaseDataSource
+import com.kinematik.themoviedb.data.datasource.DataBaseDataSource
 import com.kinematik.themoviedb.data.datasource.RemoteDataSource
 import com.kinematik.themoviedb.domain.common.DataResult
 import com.kinematik.themoviedb.domain.entity.Movie
@@ -14,7 +14,7 @@ class MoviesRemotePagedDataSource @Inject constructor(
     private val dateFrom: String,
     private val dateTo: String,
     private val remoteDataSource: RemoteDataSource,
-    private val localDataBaseDataSource: LocalDataBaseDataSource,
+    private val localDataBaseDataSource: DataBaseDataSource,
     private val coroutineScope: CoroutineScope):
     PageKeyedDataSource<Int, Movie>(){
 

@@ -19,6 +19,10 @@ class OngoingMoviesViewModel @Inject constructor(private val moviesInteractorImp
 
     var loadingJob: Job? = null
 
+    init {
+        load()
+    }
+
     private val _data: MutableLiveData<DataResult<List<MoviePresentationDao>>> = MutableLiveData()
     val data: LiveData<DataResult<List<MoviePresentationDao>>>
         get() = _data

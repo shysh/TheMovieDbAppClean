@@ -6,5 +6,5 @@ import com.kinematik.themoviedb.themoviedbappclean.farmework.db.RoomLocalDataBas
 import com.kinematik.themoviedb.themoviedbappclean.farmework.network.RetrofitRemoteDataSource
 import javax.inject.Inject
 
-class MoviesRepository @Inject constructor(remote: RetrofitRemoteDataSource, local: RoomLocalDataBaseDataSource, cache: FileBasedCacheDataSource):Repository(remote, local,cache) {
+class MoviesRepository @Inject constructor(cache: FileBasedCacheDataSource, remote: RetrofitRemoteDataSource, local: RoomLocalDataBaseDataSource):Repository(cache, remote, local) {
 }

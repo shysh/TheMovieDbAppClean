@@ -8,6 +8,8 @@ import com.kinematik.themoviedb.themoviedbappclean.farmework.cache.FileBasedCach
 import com.kinematik.themoviedb.themoviedbappclean.farmework.db.MoviesRoomDataBase
 import com.kinematik.themoviedb.themoviedbappclean.farmework.network.MoviesApiService
 import com.kinematik.themoviedb.themoviedbappclean.farmework.network.interceptor.AuthInterceptor
+import com.kinematik.themoviedb.themoviedbappclean.farmework.network.mapper.MovieResponseMapper
+import com.kinematik.themoviedb.themoviedbappclean.farmework.network.mapper.MoviesResponseMapper
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.CoroutineScope
@@ -69,6 +71,14 @@ class AppModule {
     @Provides
     fun provideFileCache(app: Application) = FileBasedCacheManager.getInstance(app)
 
+
+    @Singleton
+    @Provides
+    fun provideMovieEntityNetworkMapper() = MovieResponseMapper()
+
+    @Singleton
+    @Provides
+    fun provideMoviesPageEntityNetworkMapper(mapper:MovieResponseMapper) = MoviesResponseMapper(mapper)
 
     @CoroutineScropeIO
     @Provides

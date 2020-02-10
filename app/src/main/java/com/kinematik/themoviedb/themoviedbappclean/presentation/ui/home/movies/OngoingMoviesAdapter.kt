@@ -3,6 +3,7 @@ package com.kinematik.themoviedb.themoviedbappclean.presentation.ui.home.movies
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.view_cell_movies_item.view.*
 typealias OnAddToFavouritesCallback = (MoviePresentationDao)->Unit
 typealias OnShareCallback = (MoviePresentationDao)->Unit
 
-class OngoingMoviesAdapter : ListAdapter<MoviePresentationDao, OngoingMoviesAdapter.ViewHolder>(DiffCallback()) {
+class OngoingMoviesAdapter : PagedListAdapter<MoviePresentationDao, OngoingMoviesAdapter.ViewHolder>(DiffCallback()) {
 
     var onAddToFavourites:OnAddToFavouritesCallback? = null
     var onShareCallback:OnShareCallback? = null
