@@ -8,18 +8,24 @@ import javax.inject.Inject
 
 class FileBasedCacheDataSource @Inject constructor(private val cacheManager: FileBasedCacheManager): CacheDataSource {
 
-    //todo mapper
+
     val mapper = UserCacheEntityMapper()
 
     override suspend fun getUserData(): User? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return cacheManager.getUserData()?.let { _user ->
+            mapper.mapToEntity(_user)
+        }
     }
 
     override suspend fun saveUserData(user: User): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        getUserData()?.let {
+            removeUserData()
+        }
+        return cacheManager.saveUserData(mapper.mapFromEntity(user))
+
     }
 
     override suspend fun removeUserData(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return cacheManager.removeUserData()
     }
 }

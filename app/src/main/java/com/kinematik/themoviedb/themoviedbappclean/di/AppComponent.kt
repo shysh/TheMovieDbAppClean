@@ -1,7 +1,6 @@
 package com.kinematik.themoviedb.themoviedbappclean.di
 
 import android.app.Application
-import com.elifox.legocatalog.di.MainActivityModule
 import com.kinematik.themoviedb.themoviedbappclean.presentation.App
 import dagger.BindsInstance
 import dagger.Component

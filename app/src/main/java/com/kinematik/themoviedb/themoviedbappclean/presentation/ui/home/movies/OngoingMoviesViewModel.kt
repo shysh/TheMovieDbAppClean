@@ -6,6 +6,8 @@ import com.kinematik.themoviedb.themoviedbappclean.farmework.interactor.MoviesIn
 import com.kinematik.themoviedb.themoviedbappclean.presentation.common.mapper.MoviePresentationMapper
 import com.kinematik.themoviedb.themoviedbappclean.presentation.common.model.MoviePresentationDao
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -14,6 +16,8 @@ import javax.inject.Inject
 
 class OngoingMoviesViewModel @Inject constructor(private val moviesInteractorImp: MoviesInteractorImp) :
     ViewModel() {
+
+    var loadingJob: Job? = null
 
     private val _data: MutableLiveData<DataResult<List<MoviePresentationDao>>> = MutableLiveData()
     val data: LiveData<DataResult<List<MoviePresentationDao>>>
@@ -29,7 +33,13 @@ class OngoingMoviesViewModel @Inject constructor(private val moviesInteractorImp
     }
 
     fun load() {
-        viewModelScope.launch {
+        loadingJob?.let {
+            if(it.isActive){
+                it.cancel()
+            }
+        }
+
+        loadingJob = viewModelScope.launch() {
             loadFromHead()
         }
     }

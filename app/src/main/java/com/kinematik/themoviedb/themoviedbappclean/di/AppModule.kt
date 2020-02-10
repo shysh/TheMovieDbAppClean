@@ -4,13 +4,10 @@ import android.app.Application
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.elifox.legocatalog.di.ViewModelModule
 import com.kinematik.themoviedb.themoviedbappclean.farmework.cache.FileBasedCacheManager
 import com.kinematik.themoviedb.themoviedbappclean.farmework.db.MoviesRoomDataBase
-import com.kinematik.themoviedb.themoviedbappclean.farmework.interactor.MoviesInteractorImp
 import com.kinematik.themoviedb.themoviedbappclean.farmework.network.MoviesApiService
 import com.kinematik.themoviedb.themoviedbappclean.farmework.network.interceptor.AuthInterceptor
-
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.CoroutineScope
@@ -25,12 +22,15 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideRemoteApiService(@MovieDbAPI okhttpClient: OkHttpClient,
-                           converterFactory: GsonConverterFactory
+    fun provideRemoteApiService(
+        @MovieDbAPI okhttpClient: OkHttpClient,
+        converterFactory: GsonConverterFactory
     ) = provideService(okhttpClient, converterFactory, MoviesApiService::class.java)
 
-    private fun <T> provideService(okhttpClient: OkHttpClient,
-                                   converterFactory: GsonConverterFactory, clazz: Class<T>): T {
+    private fun <T> provideService(
+        okhttpClient: OkHttpClient,
+        converterFactory: GsonConverterFactory, clazz: Class<T>
+    ): T {
         return createRetrofit(okhttpClient, converterFactory).create(clazz)
     }
 
@@ -48,32 +48,28 @@ class AppModule {
     @MovieDbAPI
     @Provides
     fun providePrivateOkHttpClient(
-            upstreamClient: OkHttpClient
+        upstreamClient: OkHttpClient
     ): OkHttpClient {
         return upstreamClient.newBuilder()
-                .addInterceptor(AuthInterceptor()).build()
+            .addInterceptor(AuthInterceptor()).build()
     }
 
     @Singleton
     @Provides
-    fun provideDb(app: Application) = Room.databaseBuilder(app, MoviesRoomDataBase::class.java, "movie-db.db")
-        .addCallback(object : RoomDatabase.Callback() {
-            override fun onCreate(db: SupportSQLiteDatabase) {
-                super.onCreate(db)
-            }
-        })
-        .build()
-
+    fun provideDb(app: Application) =
+        Room.databaseBuilder(app, MoviesRoomDataBase::class.java, "movie-db.db")
+            .addCallback(object : RoomDatabase.Callback() {
+                override fun onCreate(db: SupportSQLiteDatabase) {
+                    super.onCreate(db)
+                }
+            })
+            .build()
 
 
     @Singleton
     @Provides
     fun provideFileCache(app: Application) = FileBasedCacheManager.getInstance(app)
 
-
-    /*@Singleton
-    @Provides
-    fun provideLocalDataBaseDataSource() = MoviesInteractorImp()*/
 
     @CoroutineScropeIO
     @Provides

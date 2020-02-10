@@ -1,7 +1,9 @@
-package com.elifox.legocatalog.di
+package com.kinematik.themoviedb.themoviedbappclean.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.kinematik.themoviedb.themoviedbappclean.di.ViewModelFactory
+import com.kinematik.themoviedb.themoviedbappclean.di.ViewModelKey
 import com.kinematik.themoviedb.themoviedbappclean.presentation.ui.home.HomeViewModel
 import com.kinematik.themoviedb.themoviedbappclean.presentation.ui.home.favourites.FavouriteMoviesViewModel
 import com.kinematik.themoviedb.themoviedbappclean.presentation.ui.home.movies.OngoingMoviesViewModel
