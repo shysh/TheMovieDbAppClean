@@ -4,9 +4,15 @@ import android.app.Application
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.kinematik.themoviedb.themoviedbappclean.farmework.cache.FileBasedCacheDataSource
 import com.kinematik.themoviedb.themoviedbappclean.farmework.cache.FileBasedCacheManager
+import com.kinematik.themoviedb.themoviedbappclean.farmework.cache.mapper.UserCacheEntityMapper
 import com.kinematik.themoviedb.themoviedbappclean.farmework.db.MoviesRoomDataBase
+import com.kinematik.themoviedb.themoviedbappclean.farmework.db.RoomLocalDataBaseDataSource
+import com.kinematik.themoviedb.themoviedbappclean.farmework.db.mapper.MovieDBEntityMapper
+import com.kinematik.themoviedb.themoviedbappclean.farmework.interactor.MoviesInteractorImp
 import com.kinematik.themoviedb.themoviedbappclean.farmework.network.MoviesApiService
+import com.kinematik.themoviedb.themoviedbappclean.farmework.network.RetrofitRemoteDataSource
 import com.kinematik.themoviedb.themoviedbappclean.farmework.network.interceptor.AuthInterceptor
 import com.kinematik.themoviedb.themoviedbappclean.farmework.network.mapper.MovieResponseMapper
 import com.kinematik.themoviedb.themoviedbappclean.farmework.network.mapper.MoviesResponseMapper
@@ -71,7 +77,6 @@ class AppModule {
     @Provides
     fun provideFileCache(app: Application) = FileBasedCacheManager.getInstance(app)
 
-
     @Singleton
     @Provides
     fun provideMovieEntityNetworkMapper() = MovieResponseMapper()
@@ -79,6 +84,21 @@ class AppModule {
     @Singleton
     @Provides
     fun provideMoviesPageEntityNetworkMapper(mapper:MovieResponseMapper) = MoviesResponseMapper(mapper)
+
+    @Singleton
+    @Provides
+    fun provideMovieDBEntityMapper() =  MovieDBEntityMapper()
+
+    @Singleton
+    @Provides
+    fun provideUserCacheEntityMapper() =  UserCacheEntityMapper()
+
+    @Singleton
+    @Provides
+    fun provideMoviesInteractor(fileBasedCacheDataSource: FileBasedCacheDataSource,
+                                retrofitRemoteDataSource: RetrofitRemoteDataSource,
+                                roomLocalDataBaseDataSource: RoomLocalDataBaseDataSource
+    ) =  MoviesInteractorImp(fileBasedCacheDataSource, retrofitRemoteDataSource, roomLocalDataBaseDataSource)
 
     @CoroutineScropeIO
     @Provides

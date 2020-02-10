@@ -10,7 +10,9 @@ interface MoviesApiService {
 
     companion object CONSTANTS {
         const val ENDPOINT = "https://api.themoviedb.org/3/"
-        const val IMAGE_PATH = "https://image.tmdb.org/t/p/original"
+        const val IMAGE_PATH_ORIGINAL = "https://image.tmdb.org/t/p/original"
+        const val IMAGE_PATH_SIZED = "https://image.tmdb.org/t/p/w"
+
         const val API_KEY = "7f6f9638f39efd41ac4c832d283f071f"
         const val QUERY_PARAM_API_KEY = "api_key"
 

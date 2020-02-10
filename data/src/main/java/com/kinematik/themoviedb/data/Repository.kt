@@ -5,7 +5,7 @@ import com.kinematik.themoviedb.data.datasource.DataBaseDataSource
 import com.kinematik.themoviedb.data.datasource.RemoteDataSource
 
 open class Repository(
-    val cacheDataSource: CacheDataSource,
+    /*val cacheDataSource: CacheDataSource,*/
     val networkDataSource: RemoteDataSource,
     val localDataBaseDataSource: DataBaseDataSource
 

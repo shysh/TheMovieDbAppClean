@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -68,7 +67,7 @@ class OngoingMoviesAdapter : PagedListAdapter<MoviePresentationDao, OngoingMovie
 
             itemView.icon_image_view.afterPreDraw { view, width, height ->
                 Glide.with(itemView)
-                    .load("${MoviesApiService.IMAGE_PATH}${item.poster_path}")
+                    .load("${MoviesApiService.IMAGE_PATH_SIZED}${width}${item.poster_path}")
                     .apply(
                         RequestOptions()
                             .override(width, height)

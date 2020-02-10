@@ -2,14 +2,14 @@ package com.kinematik.themoviedb.themoviedbappclean.farmework.cache
 
 import com.kinematik.themoviedb.data.datasource.CacheDataSource
 import com.kinematik.themoviedb.domain.entity.User
-import com.kinematik.themoviedb.themoviedbappclean.farmework.cache.entity.UserCacheEntity
 import com.kinematik.themoviedb.themoviedbappclean.farmework.cache.mapper.UserCacheEntityMapper
 import javax.inject.Inject
 
-class FileBasedCacheDataSource @Inject constructor(private val cacheManager: FileBasedCacheManager): CacheDataSource {
+class FileBasedCacheDataSource @Inject constructor(
+    private val cacheManager: FileBasedCacheManager,
+    private val mapper: UserCacheEntityMapper
+) : CacheDataSource {
 
-
-    val mapper = UserCacheEntityMapper()
 
     override suspend fun getUserData(): User? {
         return cacheManager.getUserData()?.let { _user ->
@@ -22,7 +22,6 @@ class FileBasedCacheDataSource @Inject constructor(private val cacheManager: Fil
             removeUserData()
         }
         return cacheManager.saveUserData(mapper.mapFromEntity(user))
-
     }
 
     override suspend fun removeUserData(): Boolean {

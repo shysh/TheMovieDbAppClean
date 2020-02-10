@@ -1,4 +1,4 @@
-package com.elifox.legocatalog.di
+package com.kinematik.themoviedb.themoviedbappclean.di
 
 import com.kinematik.themoviedb.themoviedbappclean.presentation.ui.home.favourites.FavouriteMoviesFragment
 import com.kinematik.themoviedb.themoviedbappclean.presentation.ui.home.HomeFragment

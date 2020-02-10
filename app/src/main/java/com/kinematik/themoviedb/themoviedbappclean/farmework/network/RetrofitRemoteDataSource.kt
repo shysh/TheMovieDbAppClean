@@ -9,10 +9,11 @@ import com.kinematik.themoviedb.themoviedbappclean.farmework.network.mapper.Movi
 import retrofit2.Response
 import javax.inject.Inject
 
-class RetrofitRemoteDataSource @Inject constructor(private val moviesApiService: MoviesApiService) :
-    RemoteDataSource {
+class RetrofitRemoteDataSource @Inject constructor(
+    private val moviesApiService: MoviesApiService,
+    private val moviesResponseMapper: MoviesResponseMapper
+) : RemoteDataSource {
 
-    val moviesResponseMapper = MoviesResponseMapper()
 
     override suspend fun getMovies(
         dateFrom: String,

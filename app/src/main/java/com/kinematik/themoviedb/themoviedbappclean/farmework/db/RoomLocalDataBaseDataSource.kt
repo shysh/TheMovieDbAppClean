@@ -6,10 +6,10 @@ import com.kinematik.themoviedb.themoviedbappclean.farmework.db.mapper.MovieDBEn
 import kotlinx.coroutines.channels.Channel
 import javax.inject.Inject
 
-class RoomLocalDataBaseDataSource @Inject constructor(val roomDataBase: MoviesRoomDataBase) :
-    DataBaseDataSource {
-
-    val movieDBEntityMapper = MovieDBEntityMapper()
+class RoomLocalDataBaseDataSource @Inject constructor(
+    val roomDataBase: MoviesRoomDataBase,
+    private val movieDBEntityMapper: MovieDBEntityMapper
+) : DataBaseDataSource {
 
 
     override suspend fun getCachedMovies(): List<Movie> {
