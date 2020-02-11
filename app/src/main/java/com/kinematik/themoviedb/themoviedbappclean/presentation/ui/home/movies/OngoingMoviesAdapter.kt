@@ -68,7 +68,7 @@ class OngoingMoviesAdapter : PagedListAdapter<MoviePresentationDao, OngoingMovie
 
             itemView.icon_image_view.afterPreDraw { view, width, height ->
                 Glide.with(itemView)
-                    .load("${MoviesApiService.IMAGE_PATH_SIZED}${width}${item.poster_path}")
+                    .load("${MoviesApiService.IMAGE_PATH_ORIGINAL}${item.poster_path}")
                     .apply(
                         RequestOptions()
                             .override(width, height)

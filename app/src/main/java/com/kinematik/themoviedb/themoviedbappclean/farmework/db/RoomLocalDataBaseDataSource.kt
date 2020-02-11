@@ -21,9 +21,10 @@ class RoomLocalDataBaseDataSource @Inject constructor(
     }
 
     override suspend fun getCachedMoviesChannel(): Channel<List<Movie>> {
-        Transformations.switchMap(roomDataBase.moviesDao().getMoviesLive(), Function {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        /*Transformations.switchMap(roomDataBase.moviesDao().getMoviesLive(), Function {
 
-        })
+        })*/
     }
 
     override suspend fun getMoviesFromFavourites(): List<Movie> {

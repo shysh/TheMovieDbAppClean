@@ -8,7 +8,10 @@ import com.kinematik.themoviedb.domain.entity.Movie
 import com.kinematik.themoviedb.themoviedbappclean.farmework.interactor.MoviesInteractorImp
 import com.kinematik.themoviedb.themoviedbappclean.presentation.common.mapper.MoviePresentationMapper
 import com.kinematik.themoviedb.themoviedbappclean.presentation.common.model.MoviePresentationDao
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -19,13 +22,50 @@ class OngoingMoviesViewModel @Inject constructor(private val moviesInteractorImp
 
     var loadingJob: Job? = null
 
+    private var _dataPaged: LiveData<DataResult<PagedList<MoviePresentationDao>>>
+    val dataPaged: LiveData<DataResult<PagedList<MoviePresentationDao>>>
+        get() = _dataPaged
+
+    private val reloadData  = MutableLiveData<Int>()
+
     init {
+        val trans = Transformations.switchMap(reloadData, {
+            val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val calendar = Calendar.getInstance()
+
+            val currentDate = calendar.time
+
+            calendar.add(Calendar.DAY_OF_YEAR, -14)
+
+            val twoWeeksLater = calendar.time
+
+            val currentDateString: String = format.format(currentDate)
+            val twoWeeksLaterDateString: String = format.format(twoWeeksLater)
+
+            return@switchMap observePagedSets(
+                true,
+                twoWeeksLaterDateString,
+                currentDateString,
+                1,
+                20,
+
+                viewModelScope
+
+            )
+        })
+
+        _dataPaged = Transformations.switchMap(trans, {
+            transform(it)
+        })
         load()
     }
 
     private val _data: MutableLiveData<DataResult<List<MoviePresentationDao>>> = MutableLiveData()
     val data: LiveData<DataResult<List<MoviePresentationDao>>>
         get() = _data
+
+
+
 
 
     fun onAddToFavourites(item: MoviePresentationDao) {
@@ -38,15 +78,18 @@ class OngoingMoviesViewModel @Inject constructor(private val moviesInteractorImp
 
     fun load() {
         loadingJob?.let {
-            if(it.isActive){
+            if (it.isActive) {
                 it.cancel()
             }
         }
 
         loadingJob = viewModelScope.launch() {
-            loadFromHead()
+            //loadFromHead()
+            reloadData.postValue(0)
         }
     }
+
+
 
     private suspend fun loadFromHead() {
 
@@ -105,30 +148,98 @@ class OngoingMoviesViewModel @Inject constructor(private val moviesInteractorImp
         }
     }
 
-    fun observePagedSets(connectivityAvailable: Boolean, themeId: Int? = null,
-                         coroutineScope: CoroutineScope
-    ) = if (connectivityAvailable) observeRemotePagedSets(themeId, coroutineScope)
-        else observeLocalPagedSets(themeId)
+    private suspend fun loadPaged(){
+        //_dataPaged.postValue(DataResult.loading())
 
-    private fun observeLocalPagedSets(themeId: Int? = null): LiveData<PagedList<Movie>> {
+        val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val calendar = Calendar.getInstance()
+
+        val currentDate = calendar.time
+
+        calendar.add(Calendar.DAY_OF_YEAR, -14)
+
+        val twoWeeksLater = calendar.time
+
+        val currentDateString: String = format.format(currentDate)
+        val twoWeeksLaterDateString: String = format.format(twoWeeksLater)
+
+        /*val mediatorLiveData = MediatorLiveData<LiveData<DataResult<PagedList<MoviePresentationDao>>>>()
+        mediatorLiveData.addSource()*/
+
+        _dataPaged = Transformations.switchMap(observePagedSets(
+            true,
+            twoWeeksLaterDateString,
+            currentDateString,
+            1,
+            20,
+
+            viewModelScope
+
+        ), {
+            transform(it)
+
+        })
+    }
+
+    fun transform(data :PagedList<MoviePresentationDao>):MutableLiveData<DataResult<PagedList<MoviePresentationDao>>>{
+        return MutableLiveData(DataResult.success(data))
+    }
+
+
+    fun observePagedSets(
+        connectivityAvailable: Boolean,
+        dateFrom: String,
+        dateTo: String,
+        page: Int = 1,
+        pageSize: Int = 20,
+        coroutineScope: CoroutineScope
+    ) = /*if (connectivityAvailable) */observeRemotePagedSets(
+        dateFrom,
+        dateTo,
+        page,
+        pageSize,
+        coroutineScope
+    )
+    /*else observeLocalPagedSets(dateFrom, dateTo, page, pageSize)*/
+
+    /*private fun observeLocalPagedSets(
+        dateFrom: String,
+        dateTo: String,
+        page: Int = 1,
+        pageSize: Int = 20
+    ): LiveData<PagedList<Movie>> {
         val dataSourceFactory =
             if (themeId == null) dao.getPagedLegoSets()
             else dao.getPagedLegoSetsByTheme(themeId)
 
-        return LivePagedListBuilder(dataSourceFactory,
-            LegoSetPageDataSourceFactory.pagedListConfig()).build()
-    }
+        return LivePagedListBuilder(
+            dataSourceFactory,
+            LegoSetPageDataSourceFactory.pagedListConfig()
+        ).build()
+    }*/
 
-    private fun observeRemotePagedSets(dateFrom: String,
-                                       dateTo: String,
-                                       page: Int = 1,
-                                       pageSize: Int = 20,
-                                       ioCoroutineScope: CoroutineScope)
-            : LiveData<PagedList<Movie>> {
-        val dataSourceFactory = LegoSetPageDataSourceFactory(themeId, legoSetRemoteDataSource,
-            dao, ioCoroutineScope)
-        return LivePagedListBuilder(dataSourceFactory,
-            LegoSetPageDataSourceFactory.pagedListConfig()).build()
+    private fun observeRemotePagedSets(
+        dateFrom: String,
+        dateTo: String,
+        page: Int = 1,
+        pageSize: Int = 20,
+        ioCoroutineScope: CoroutineScope
+    )
+            : LiveData<PagedList<MoviePresentationDao>> {
+        val dataSourceFactory = LegoSetPageDataSourceFactory(
+            dateFrom,
+            dateTo,
+            page,
+            pageSize,
+            moviesInteractorImp.remoteDataSource,
+            moviesInteractorImp.localDataBaseDataSource,
+            MoviePresentationMapper(),
+            ioCoroutineScope
+        )
+        return LivePagedListBuilder(
+            dataSourceFactory,
+            LegoSetPageDataSourceFactory.pagedListConfig()
+        ).build()
     }
 
 }

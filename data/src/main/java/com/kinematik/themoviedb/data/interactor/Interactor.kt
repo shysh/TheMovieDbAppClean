@@ -1,17 +1,14 @@
 package com.kinematik.themoviedb.data.interactor
 
-import com.kinematik.themoviedb.data.datasource.CacheDataSource
 import com.kinematik.themoviedb.data.datasource.DataBaseDataSource
 import com.kinematik.themoviedb.data.datasource.RemoteDataSource
 import com.kinematik.themoviedb.domain.entity.Movie
 
 abstract class MoviesInteractor(
     /*private val cacheDataSource: CacheDataSource,*/
-    private val remoteDataSource: RemoteDataSource,
-    private val localDataBaseDataSource: DataBaseDataSource
+    val remoteDataSource: RemoteDataSource,
+    val localDataBaseDataSource: DataBaseDataSource
 ) {
-
-
 
 
     suspend fun getMovies(
@@ -24,9 +21,9 @@ abstract class MoviesInteractor(
     )
 
 
-
-    suspend  fun getCachedMovies(): List<Movie> =
+    suspend fun getCachedMovies(): List<Movie> =
         localDataBaseDataSource.getCachedMovies()
 
-    suspend fun saveMovieToFavourites(movie: Movie) = localDataBaseDataSource.saveMovieToFavourites(movie)
+    suspend fun saveMovieToFavourites(movie: Movie) =
+        localDataBaseDataSource.saveMovieToFavourites(movie)
 }

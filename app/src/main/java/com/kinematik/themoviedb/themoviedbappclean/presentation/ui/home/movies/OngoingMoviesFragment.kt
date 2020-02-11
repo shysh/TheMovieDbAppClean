@@ -59,7 +59,7 @@ class OngoingMoviesFragment : Fragment(), Injectable {
     }
 
     private fun subscribeToViewModel() {
-        viewModel.data.observe(viewLifecycleOwner, Observer { _result->
+        viewModel.dataPaged.observe(viewLifecycleOwner, Observer { _result->
             when(_result.status){
                 DataResult.Status.SUCCESS ->{
                     _result.data?.let {
